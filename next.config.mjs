@@ -1,6 +1,7 @@
+import bundleAnalyzer from "@next/bundle-analyzer";
 import { withBotId } from "botid/next/config";
 
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
+const withBundleAnalyzer = bundleAnalyzer({
 	enabled: process.env.ANALYZE === "true",
 });
 
@@ -12,4 +13,4 @@ const nextConfig = {
 	serverExternalPackages: ["esbuild-wasm"],
 };
 
-export default withBundleAnalyzer(withBotId(withMDX(nextConfig)));
+export default withBundleAnalyzer(withBotId(nextConfig));
