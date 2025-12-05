@@ -1,7 +1,7 @@
 // @ts-check
 /** @type {import("next").NextConfig} */
 const nextConfig = {
-	// cacheComponents: true,
+	cacheComponents: true,
 	reactStrictMode: true,
 	serverExternalPackages: ["esbuild-wasm"],
 };
