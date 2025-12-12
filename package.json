@@ -14,7 +14,7 @@
     "@next/bundle-analyzer": "^16.0.7",
     "@serwist/turbopack": "10.0.0-preview.14",
     "botid": "^1.5.10",
-    "next": "16.0.7",
+    "next": "16.0.10",
     "react": "19.2.1",
     "react-dom": "19.2.1",
     "serwist": "10.0.0-preview.14"
