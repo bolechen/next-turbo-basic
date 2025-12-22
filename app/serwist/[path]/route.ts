@@ -1,26 +1,15 @@
+import { spawnSync } from "node:child_process";
 import { createSerwistRoute } from "@serwist/turbopack";
-import { execSync } from "node:child_process";
 
-// Get the git revision for cache busting
-const revision = (() => {
-  try {
-    return execSync("git rev-parse HEAD").toString().trim();
-  } catch {
-    // Fallback if git is not available or not in a git repo
-    return Date.now().toString();
-  }
-})();
+// Using `git rev-parse HEAD` might not be the most efficient
+// way of determining a revision. You may prefer to use
+// the hashes of every extra file you precache.
+const revision = spawnSync("git", ["rev-parse", "HEAD"], { encoding: "utf-8" }).stdout ?? crypto.randomUUID();
 
 export const { dynamic, dynamicParams, revalidate, generateStaticParams, GET } = createSerwistRoute({
+  additionalPrecacheEntries: [{ url: "/~offline", revision }],
   swSrc: "app/sw.ts",
-  // Precache the offline fallback page
-  additionalPrecacheEntries: [
-    {
-      url: "/~offline",
-      revision,
-    },
-  ],
-  nextConfig: {
-    basePath: "/",
-  },
+  // Copy relevant Next.js configuration (assetPrefix,
+  // basePath, distDir) over if you've changed them.
+  nextConfig: {},
 });
